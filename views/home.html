@@ -37,10 +37,10 @@
 
         <p class="mt-4">Cupcake flavors:</p>
         <div class="col-sm-4">
-            <repeat group="{{ @flavor }}" value="{{ @flavor }}">
+            <repeat group="{{ @flavors }}" value="{{ @flavors }}">
                 <label><input type="checkbox"
                               name="flavors[]"
-                              value="{{ @flavor }}"> {{ @flavor }}</label><br>
+                              value="{{ @flavors }}"> {{ @flavors }}</label><br>
             </repeat>
             <!-- display an error message if there is one -->
             <check if="{{ isset(@errors['flavors']) }}">
