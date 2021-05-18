@@ -1,8 +1,4 @@
 <?php
-/* data-layer.php
- * populated checkbox list using an array
- *
- */
 
 function getFlavors()
 {
