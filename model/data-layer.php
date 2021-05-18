@@ -2,6 +2,6 @@
 
 function getFlavors()
 {
-    return array("The Grasshopper", "Whiskey Maple Bacon", "Carrot Walnut",
-        "Salted Caramel Cupcake", "Red Velvet", "Lemon Drop", "Tiramisu");
+    return array("grasshopper" => "The Grasshopper", "maple" => "Whiskey Maple Bacon", "carrot" => "Carrot Walnut", "caramel" => "Salted Caramel Cupcake",
+        "velvet" => "Red Velvet", "lemon" => "Lemon Drops", "tiramisu" => "Tiramisu");
 }
