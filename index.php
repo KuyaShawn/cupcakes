@@ -4,6 +4,9 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+// start a session
+session_start();
+
 //Require autoload file
 require_once ('vendor/autoload.php');
 require_once ('model/data-layer.php');
@@ -13,7 +16,7 @@ require_once ('model/validation.php');
 $f3 = Base::instance();
 
 //Define routes
-$f3->route('GET /', function($f3){
+$f3->route('GET|POST /', function($f3){
 
     /* If the form has been submitted, add the data to session
  * and send the user to the next order form
@@ -33,9 +36,9 @@ $f3->route('GET /', function($f3){
         //If flavors are selected
         if (!empty($_POST['flavors'])) {
 
-            //If condiments are valid
-            if (validChoices($_POST['flavors']) && isset($_POST['flavors'])) {
-                $_SESSION['flavors'] = implode(", ", $_POST['flavors']);
+            //If flavors are valid
+            if (validFlavor($_POST['flavors']) && isset($_POST['flavors'])) {
+                $_SESSION['flavors'] = "<li>".implode(", ", $_POST['flavors'])."</li>";
             }
             else {
                 $f3->set('errors["flavors"]', 'Invalid selection');
