@@ -1,0 +1,8 @@
+#btn_size{
+    width: 8.125em;
+    height: 2.5em;
+}
+.err {
+    color: darkred;
+    padding-left: 1em;
+}
