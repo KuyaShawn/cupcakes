@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 //Require autoload file
 require_once ('vendor/autoload.php');
 require_once ('model/data-layer.php');
+require_once ('model/validation.php');
 
 //Instantiate Fat-Free
 $f3 = Base::instance();
@@ -21,7 +22,7 @@ $f3->route('GET /', function($f3){
         //var_dump($_POST);
 
         //If name is valid, store data
-        if(validFood($_POST['name'])) {
+        if(validName($_POST['name'])) {
             $_SESSION['name'] = $_POST['name'];
         }
         //Otherwise, set an error variable in the hive
@@ -29,12 +30,12 @@ $f3->route('GET /', function($f3){
             $f3->set('errors["name"]', 'Please enter a Name');
         }
 
-        //If condiments are selected
-        if (!empty($_POST['choices'])) {
+        //If flavors are selected
+        if (!empty($_POST['flavors'])) {
 
             //If condiments are valid
-            if (validChoices($_POST['choices']) && isset($_POST['choices'])) {
-                $_SESSION['choices'] = implode(", ", $_POST['choices']);
+            if (validChoices($_POST['flavors']) && isset($_POST['flavors'])) {
+                $_SESSION['flavors'] = implode(", ", $_POST['flavors']);
             }
             else {
                 $f3->set('errors["flavors"]', 'Invalid selection');
@@ -43,18 +44,27 @@ $f3->route('GET /', function($f3){
             $f3->set('errors["flavors"]', 'Please select one or more checkboxes');
         }
 
-        //If there are no errors, redirect to order2 route
+        //If there are no errors, redirect to summary route
         if (empty($f3->get('errors'))) {
             header('location: summary');
         }
     }
 
-    //Get the condiments from the Model and send them to the View
+    //Get the flavors from the Model and send them to the View
     $f3->set('flavor', getFlavors());
 
     // Display the home page
     $view = new Template();
     echo $view -> render('views/home.html');
+});
+
+// Summary page
+$f3->route('GET /summary', function(){
+
+    // Display the summary page
+    $view = new Template();
+    echo $view->render('views/summary.html');
+
 });
 
 //Run Fat-Free
