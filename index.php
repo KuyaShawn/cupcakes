@@ -8,15 +8,15 @@ error_reporting(E_ALL);
 session_start();
 
 //Require autoload file
-require_once ('vendor/autoload.php');
-require_once ('model/data-layer.php');
-require_once ('model/validation.php');
+require_once('vendor/autoload.php');
+require_once('model/data-layer.php');
+require_once('model/validation.php');
 
 //Instantiate Fat-Free
 $f3 = Base::instance();
 
 //Define routes
-$f3->route('GET|POST /', function($f3){
+$f3->route('GET|POST /', function ($f3) {
     $userFlavors = array();
 
     /* If the form has been submitted, add the data to session
@@ -26,22 +26,20 @@ $f3->route('GET|POST /', function($f3){
         //var_dump($_POST);
 
         //If name is valid, store data
-        if(validName($_POST['name'])) {
+        if (validName($_POST['name'])) {
             $_SESSION['name'] = $_POST['name'];
-        }
-        //Otherwise, set an error variable in the hive
+        } //Otherwise, set an error variable in the hive
         else {
             $f3->set('errors["name"]', 'Please enter a Name');
         }
 
         //If flavors are selected
-        if (validFlavor($_POST['flavors']))
-        {
+        if (validFlavor($_POST['flavors'])) {
             $userFlavors = $_POST['flavors'];
             //Get user input
             $_SESSION['userFlavors'] = $userFlavors;
             $_SESSION['total'] = number_format((double)count($userFlavors) * 3.50, 2);
-        }else{
+        } else {
             $f3->set('errors["flavors"]', 'Please select one or more flavors');
         }
 
@@ -57,11 +55,11 @@ $f3->route('GET|POST /', function($f3){
 
     // Display the home page
     $view = new Template();
-    echo $view -> render('views/home.html');
+    echo $view->render('views/home.html');
 });
 
 // Summary page
-$f3->route('GET /summary', function(){
+$f3->route('GET /summary', function () {
 
     // Display the summary page
     $view = new Template();
