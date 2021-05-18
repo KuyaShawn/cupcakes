@@ -27,7 +27,7 @@
         <h1>Cupcake Fundraiser</h1>
         <div class="form-group">
             <label for="name">Your name:</label>
-            <input type="text" name="name" id="name" class="form-control col-3" value="Please input your name.">
+            <input type="text" name="name" id="name" class="form-control col-3" value="{{@name}}" placeholder="Please input your name.">
         </div>
 
         <!-- display an error message if there is one -->
@@ -43,8 +43,8 @@
                               value="{{ @flavor }}"> {{ @flavor }}</label><br>
             </repeat>
             <!-- display an error message if there is one -->
-            <check if="{{ isset(@errors['flavor']) }}">
-                <span class="err">{{ @errors['flavor'] }}</span>
+            <check if="{{ isset(@errors['flavors']) }}">
+                <span class="err">{{ @errors['flavors'] }}</span>
             </check>
         </div>
 
