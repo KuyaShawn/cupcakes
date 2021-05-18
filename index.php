@@ -17,6 +17,7 @@ $f3 = Base::instance();
 
 //Define routes
 $f3->route('GET|POST /', function($f3){
+    $userFlavors = array();
 
     /* If the form has been submitted, add the data to session
  * and send the user to the next order form
@@ -34,17 +35,14 @@ $f3->route('GET|POST /', function($f3){
         }
 
         //If flavors are selected
-        if (!empty($_POST['flavors'])) {
-
-            //If flavors are valid
-            if (validFlavor($_POST['flavors']) && isset($_POST['flavors'])) {
-                $_SESSION['flavors'] = "<li>".implode(", ", $_POST['flavors'])."</li>";
-            }
-            else {
-                $f3->set('errors["flavors"]', 'Invalid selection');
-            }
+        if (validFlavor($_POST['flavors']))
+        {
+            $userFlavors = $_POST['flavors'];
+            //Get user input
+            $_SESSION['userFlavors'] = $userFlavors;
+            $_SESSION['total'] = number_format((double)count($userFlavors) * 3.50, 2);
         }else{
-            $f3->set('errors["flavors"]', 'Please select one or more checkboxes');
+            $f3->set('errors["flavors"]', 'Please select one or more flavors');
         }
 
         //If there are no errors, redirect to summary route
@@ -54,7 +52,8 @@ $f3->route('GET|POST /', function($f3){
     }
 
     //Get the flavors from the Model and send them to the View
-    $f3->set('flavor', getFlavors());
+    $f3->set('flavors', getFlavors());
+    $f3->set('userFlavors', $userFlavors);
 
     // Display the home page
     $view = new Template();
